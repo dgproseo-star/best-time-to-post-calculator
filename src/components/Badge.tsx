@@ -1,0 +1,15 @@
+export interface BadgeProps {
+  children: React.ReactNode;
+}
+
+export function Badge({ children }: BadgeProps) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-sm font-semibold text-brand-700">
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
+      </span>
+      {children}
+    </span>
+  );
+}
