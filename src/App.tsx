@@ -77,7 +77,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className={`min-h-screen bg-slate-50${embed ? ' pt-6' : ''}`}>
       {!embed && <Hero />}
       <main ref={resultsRef}>
         <Calculator
