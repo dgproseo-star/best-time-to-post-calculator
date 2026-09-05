@@ -26,7 +26,13 @@ const DEFAULT_STATE: CalculatorState = {
   timezone: '',
 };
 
+function isEmbedMode(): boolean {
+  if (typeof window === 'undefined') return false;
+  return new URLSearchParams(window.location.search).get('embed') === '1';
+}
+
 function App() {
+  const embed = isEmbedMode();
   const [form, setForm] = useState<CalculatorState>(DEFAULT_STATE);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ResultData | null>(null);
@@ -72,7 +78,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <Hero />
+      {!embed && <Hero />}
       <main ref={resultsRef}>
         <Calculator
           state={form}
@@ -93,15 +99,19 @@ function App() {
           />
         )}
 
-        <Disclaimer />
-        <PlatformQuickLinks onSelectPlatform={handlePlatformSelect} />
-        <QuickTips />
-        <HowItWorks />
-        <SeoContent onSelectPlatform={handlePlatformSelect} />
-        <FAQ />
-        <CTA />
+        {!embed && (
+          <>
+            <Disclaimer />
+            <PlatformQuickLinks onSelectPlatform={handlePlatformSelect} />
+            <QuickTips />
+            <HowItWorks />
+            <SeoContent onSelectPlatform={handlePlatformSelect} />
+            <FAQ />
+            <CTA />
+          </>
+        )}
       </main>
-      <Footer />
+      {!embed && <Footer />}
     </div>
   );
 }
